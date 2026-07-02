@@ -1,0 +1,119 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		69CA20A4BDAEC615A2929313 /* NetworkMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D4C5F94C4402E2E05FECF4 /* NetworkMonitorApp.swift */; };
+		16351BD10DCDBAB6B04FD201 /* NetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9530455DFB505227AB459FA4 /* NetworkInfo.swift */; };
+		0DA9593048830830DE033B88 /* ProxyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D61F3F2DD7B3BE5568D4133 /* ProxyInfo.swift */; };
+		2E6AD0C299764BFA8BCF6C2D /* VPNInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289564A311EC090802F3096 /* VPNInfo.swift */; };
+		B30734A6EBC5A41481AA8C1D /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC3BDE1434245967BA55E4 /* ClipboardService.swift */; };
+		3C05750C098946981E272A53 /* DNSInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF937D51989C0FB3759CA60 /* DNSInfoService.swift */; };
+		3C73255394AB0E869F5D3543 /* IPAddressService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C7352AF74D7F49C33C477 /* IPAddressService.swift */; };
+		F89783C50E50F7879AB428C5 /* NetworkInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61CEF8A4E08E41FA32C316 /* NetworkInfoService.swift */; };
+		D5608EFF539A217587C7B995 /* ProxyInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA1BC2C75F856233BC9EEEF /* ProxyInfoService.swift */; };
+		90CA8897678DC757FA37F96E /* VPNInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F075402A6F52C3A78E5E93D0 /* VPNInfoService.swift */; };
+		FF247C686B937AFDD339821C /* NetworkStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA890977834FC9282A5E3 /* NetworkStatusViewModel.swift */; };
+		138BCE09D43983B28E6BD7A5 /* ActionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F7D67357C1B77EA3436B5 /* ActionButtonsView.swift */; };
+		51C51A7BA5B442554ECD31B1 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B8BB9D370BC861FC13B3A /* MenuBarView.swift */; };
+		BC0EE346614565449BC067C9 /* NetworkDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF44A02FCBC1438CF00EEEBE /* NetworkDetailRow.swift */; };
+		1ABA8EE1547CD97E6C715F14 /* NetworkSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579B1AF39926DEC95DEB2578 /* NetworkSummaryView.swift */; };
+		6BD354B7C9DFBEA487AAFE8B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC83287C74A7BC2BE1BC3B6 /* SystemConfiguration.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F5BF48AA40CAD7891EB709FC /* Network Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Network Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8D4C5F94C4402E2E05FECF4 /* NetworkMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/App/NetworkMonitorApp.swift; sourceTree = "<group>"; };
+		9530455DFB505227AB459FA4 /* NetworkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Models/NetworkInfo.swift; sourceTree = "<group>"; };
+		6D61F3F2DD7B3BE5568D4133 /* ProxyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Models/ProxyInfo.swift; sourceTree = "<group>"; };
+		B289564A311EC090802F3096 /* VPNInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Models/VPNInfo.swift; sourceTree = "<group>"; };
+		07CC3BDE1434245967BA55E4 /* ClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/ClipboardService.swift; sourceTree = "<group>"; };
+		0DF937D51989C0FB3759CA60 /* DNSInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/DNSInfoService.swift; sourceTree = "<group>"; };
+		AD0C7352AF74D7F49C33C477 /* IPAddressService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/IPAddressService.swift; sourceTree = "<group>"; };
+		CB61CEF8A4E08E41FA32C316 /* NetworkInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/NetworkInfoService.swift; sourceTree = "<group>"; };
+		6DA1BC2C75F856233BC9EEEF /* ProxyInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/ProxyInfoService.swift; sourceTree = "<group>"; };
+		F075402A6F52C3A78E5E93D0 /* VPNInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/VPNInfoService.swift; sourceTree = "<group>"; };
+		CB4DA890977834FC9282A5E3 /* NetworkStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/ViewModels/NetworkStatusViewModel.swift; sourceTree = "<group>"; };
+		155F7D67357C1B77EA3436B5 /* ActionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Views/ActionButtonsView.swift; sourceTree = "<group>"; };
+		1D6B8BB9D370BC861FC13B3A /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Views/MenuBarView.swift; sourceTree = "<group>"; };
+		FF44A02FCBC1438CF00EEEBE /* NetworkDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Views/NetworkDetailRow.swift; sourceTree = "<group>"; };
+		579B1AF39926DEC95DEB2578 /* NetworkSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Views/NetworkSummaryView.swift; sourceTree = "<group>"; };
+		8EC83287C74A7BC2BE1BC3B6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		29B2D46AA747A59804D46E1F /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = ( 6BD354B7C9DFBEA487AAFE8B /* SystemConfiguration.framework in Frameworks */, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5928955287B8089ED2177128 = {isa = PBXGroup; children = ( D685C104AFFBCF83C7CB0FB6 /* Sources */, 175C932161BEBF3B8BB1F58C /* Frameworks */, BF7A2D27A78D590BDEF15AF2 /* Products */, ); sourceTree = "<group>"; };
+		D685C104AFFBCF83C7CB0FB6 /* Sources */ = {isa = PBXGroup; children = (
+				A8D4C5F94C4402E2E05FECF4 /* NetworkMonitorApp.swift */,
+				9530455DFB505227AB459FA4 /* NetworkInfo.swift */,
+				6D61F3F2DD7B3BE5568D4133 /* ProxyInfo.swift */,
+				B289564A311EC090802F3096 /* VPNInfo.swift */,
+				07CC3BDE1434245967BA55E4 /* ClipboardService.swift */,
+				0DF937D51989C0FB3759CA60 /* DNSInfoService.swift */,
+				AD0C7352AF74D7F49C33C477 /* IPAddressService.swift */,
+				CB61CEF8A4E08E41FA32C316 /* NetworkInfoService.swift */,
+				6DA1BC2C75F856233BC9EEEF /* ProxyInfoService.swift */,
+				F075402A6F52C3A78E5E93D0 /* VPNInfoService.swift */,
+				CB4DA890977834FC9282A5E3 /* NetworkStatusViewModel.swift */,
+				155F7D67357C1B77EA3436B5 /* ActionButtonsView.swift */,
+				1D6B8BB9D370BC861FC13B3A /* MenuBarView.swift */,
+				FF44A02FCBC1438CF00EEEBE /* NetworkDetailRow.swift */,
+				579B1AF39926DEC95DEB2578 /* NetworkSummaryView.swift */,
+			 ); name = Sources; sourceTree = "<group>"; };
+		175C932161BEBF3B8BB1F58C /* Frameworks */ = {isa = PBXGroup; children = ( 8EC83287C74A7BC2BE1BC3B6 /* SystemConfiguration.framework */, ); name = Frameworks; sourceTree = "<group>"; };
+		BF7A2D27A78D590BDEF15AF2 /* Products */ = {isa = PBXGroup; children = ( F5BF48AA40CAD7891EB709FC /* Network Monitor.app */, ); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* Network Monitor */ = {isa = PBXNativeTarget; buildConfigurationList = DDC96F7C1D62EA89141E06E0 /* Build configuration list for PBXNativeTarget "Network Monitor" */; buildPhases = ( E7209FB05162B7572F88D05E /* Sources */, 29B2D46AA747A59804D46E1F /* Frameworks */, 66F8606E9F0A136E2228EBCB /* Resources */, ); buildRules = ( ); dependencies = ( ); name = "Network Monitor"; productName = "Network Monitor"; productReference = F5BF48AA40CAD7891EB709FC /* Network Monitor.app */; productType = "com.apple.product-type.application"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1530; LastUpgradeCheck = 1530; TargetAttributes = { 42AEFBAE01D2DFD981F7DA7D = {CreatedOnToolsVersion = 15.3; }; }; }; buildConfigurationList = 4623F89214148A3820E2F59A /* Build configuration list for PBXProject "MenuBarNetworkMonitor" */; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = ( en, Base, ); mainGroup = 5928955287B8089ED2177128; productRefGroup = BF7A2D27A78D590BDEF15AF2 /* Products */; projectDirPath = ""; projectRoot = ""; targets = ( 42AEFBAE01D2DFD981F7DA7D /* Network Monitor */, ); };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		66F8606E9F0A136E2228EBCB /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E7209FB05162B7572F88D05E /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+				69CA20A4BDAEC615A2929313 /* NetworkMonitorApp.swift in Sources */,
+				16351BD10DCDBAB6B04FD201 /* NetworkInfo.swift in Sources */,
+				0DA9593048830830DE033B88 /* ProxyInfo.swift in Sources */,
+				2E6AD0C299764BFA8BCF6C2D /* VPNInfo.swift in Sources */,
+				B30734A6EBC5A41481AA8C1D /* ClipboardService.swift in Sources */,
+				3C05750C098946981E272A53 /* DNSInfoService.swift in Sources */,
+				3C73255394AB0E869F5D3543 /* IPAddressService.swift in Sources */,
+				F89783C50E50F7879AB428C5 /* NetworkInfoService.swift in Sources */,
+				D5608EFF539A217587C7B995 /* ProxyInfoService.swift in Sources */,
+				90CA8897678DC757FA37F96E /* VPNInfoService.swift in Sources */,
+				FF247C686B937AFDD339821C /* NetworkStatusViewModel.swift in Sources */,
+				138BCE09D43983B28E6BD7A5 /* ActionButtonsView.swift in Sources */,
+				51C51A7BA5B442554ECD31B1 /* MenuBarView.swift in Sources */,
+				BC0EE346614565449BC067C9 /* NetworkDetailRow.swift in Sources */,
+				1ABA8EE1547CD97E6C715F14 /* NetworkSummaryView.swift in Sources */,
+			); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2D53B50AE2273FABAAF8B8FA /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_STRICT_OBJC_MSGSEND = YES; ENABLE_TESTABILITY = YES; GCC_OPTIMIZATION_LEVEL = 0; MACOSX_DEPLOYMENT_TARGET = 13.0; ONLY_ACTIVE_ARCH = YES; SDKROOT = macosx; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+		D4B2141B77146EF47E948847 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; ENABLE_NS_ASSERTIONS = NO; ENABLE_STRICT_OBJC_MSGSEND = YES; MACOSX_DEPLOYMENT_TARGET = 13.0; SDKROOT = macosx; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; }; name = Release; };
+		FA7C752E798F561D7D156D98 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; COMBINE_HIDPI_IMAGES = YES; CURRENT_PROJECT_VERSION = 1; INFOPLIST_FILE = Sources/MenuBarNetworkMonitor/Info.plist; LD_RUNPATH_SEARCH_PATHS = ( "$(inherited)", "@executable_path/../Frameworks", ); MACOSX_DEPLOYMENT_TARGET = 13.0; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarNetworkMonitor; PRODUCT_NAME = "Network Monitor"; SWIFT_VERSION = 5.9; }; name = Debug; };
+		22F75101C717335ACF4089A0 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; COMBINE_HIDPI_IMAGES = YES; CURRENT_PROJECT_VERSION = 1; INFOPLIST_FILE = Sources/MenuBarNetworkMonitor/Info.plist; LD_RUNPATH_SEARCH_PATHS = ( "$(inherited)", "@executable_path/../Frameworks", ); MACOSX_DEPLOYMENT_TARGET = 13.0; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarNetworkMonitor; PRODUCT_NAME = "Network Monitor"; SWIFT_VERSION = 5.9; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4623F89214148A3820E2F59A /* Build configuration list for PBXProject "MenuBarNetworkMonitor" */ = {isa = XCConfigurationList; buildConfigurations = ( 2D53B50AE2273FABAAF8B8FA /* Debug */, D4B2141B77146EF47E948847 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		DDC96F7C1D62EA89141E06E0 /* Build configuration list for PBXNativeTarget "Network Monitor" */ = {isa = XCConfigurationList; buildConfigurations = ( FA7C752E798F561D7D156D98 /* Debug */, 22F75101C717335ACF4089A0 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
