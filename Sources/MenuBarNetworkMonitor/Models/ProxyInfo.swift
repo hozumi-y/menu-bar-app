@@ -1,5 +1,3 @@
-import Foundation
-
 enum ProxyDetectionStatus: Equatable {
     case available
     case unavailable

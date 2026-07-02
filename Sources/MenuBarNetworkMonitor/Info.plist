@@ -6,6 +6,10 @@
     <string>com.example.MenuBarNetworkMonitor</string>
     <key>CFBundleName</key>
     <string>Network Monitor</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
     <key>LSUIElement</key>
     <true/>
 </dict>
