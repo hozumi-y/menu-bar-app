@@ -7,7 +7,7 @@ struct ActionButtonsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Button(viewModel.isRefreshing ? "更新中..." : "更新") {
-                Task { await viewModel.refresh() }
+                viewModel.refresh()
             }
             .disabled(viewModel.isRefreshing)
 
