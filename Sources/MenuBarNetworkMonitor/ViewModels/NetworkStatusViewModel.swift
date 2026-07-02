@@ -11,26 +11,36 @@ final class NetworkStatusViewModel: ObservableObject {
     }
 
     private let networkInfoService: NetworkInfoServicing
+    private let ipAddressService: IPAddressServicing
     private let clipboardService: ClipboardServicing
+    private var refreshTask: Task<Void, Never>?
 
     init(
         networkInfoService: NetworkInfoServicing = NetworkInfoService(),
+        ipAddressService: IPAddressServicing = IPAddressService(),
         clipboardService: ClipboardServicing = ClipboardService()
     ) {
         self.networkInfo = .placeholder
         self.networkInfoService = networkInfoService
+        self.ipAddressService = ipAddressService
         self.clipboardService = clipboardService
         startMonitoringNetworkStatus()
+
+        Task { await refresh() }
     }
 
     deinit {
+        refreshTask?.cancel()
         networkInfoService.stopMonitoring()
     }
 
     func refresh() async {
-        guard !isRefreshing else { return }
+        refreshTask?.cancel()
         isRefreshing = true
-        networkInfo = await networkInfoService.fetchNetworkInfo()
+
+        let baseNetworkInfo = await networkInfoService.fetchNetworkInfo()
+        await updateIPAddress(for: baseNetworkInfo)
+
         isRefreshing = false
     }
 
@@ -41,9 +51,32 @@ final class NetworkStatusViewModel: ObservableObject {
     private func startMonitoringNetworkStatus() {
         networkInfoService.startMonitoring { [weak self] networkInfo in
             Task { @MainActor [weak self] in
-                self?.networkInfo = networkInfo
+                self?.refreshTask?.cancel()
+                self?.refreshTask = Task { [weak self] in
+                    await self?.updateIPAddress(for: networkInfo)
+                }
             }
         }
+    }
+
+    private func updateIPAddress(for baseNetworkInfo: NetworkInfo) async {
+        let localIPAddress = ipAddressService.getLocalIPAddress()
+        var updatedNetworkInfo = baseNetworkInfo
+        updatedNetworkInfo.localIPAddress = localIPAddress
+        updatedNetworkInfo.globalIPAddress = baseNetworkInfo.isOnline ? "取得中" : "取得失敗"
+        updatedNetworkInfo.isFetchingGlobalIP = baseNetworkInfo.isOnline
+        updatedNetworkInfo.lastUpdated = Date()
+        networkInfo = updatedNetworkInfo
+
+        guard baseNetworkInfo.isOnline else { return }
+
+        let globalIPAddress = await ipAddressService.fetchGlobalIPAddress()
+        guard !Task.isCancelled else { return }
+
+        updatedNetworkInfo.globalIPAddress = globalIPAddress
+        updatedNetworkInfo.isFetchingGlobalIP = false
+        updatedNetworkInfo.lastUpdated = Date()
+        networkInfo = updatedNetworkInfo
     }
 }
 

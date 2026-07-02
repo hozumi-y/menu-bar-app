@@ -16,6 +16,7 @@ struct NetworkInfo: Equatable {
     var proxy: String
     var vpn: String
     var dns: String
+    var isFetchingGlobalIP: Bool
     var lastUpdated: Date?
 
     var connectionStatusText: String {
@@ -34,13 +35,16 @@ struct NetworkInfo: Equatable {
     var menuBarTitle: String {
         guard isOnline else { return "⚠️ Offline" }
 
+        let ipAddressText = isFetchingGlobalIP ? "取得中" : globalIPAddress
+        let displayIPAddress = globalIPAddress == "取得失敗" ? "IP取得失敗" : ipAddressText
+
         switch connectionType {
         case .wifi:
-            return "🌐 Wi-Fi"
+            return "🌐 Wi-Fi / \(displayIPAddress)"
         case .ethernet:
-            return "🌐 Ethernet"
+            return "🌐 Ethernet / \(displayIPAddress)"
         case .cellular, .other, .unknown:
-            return "🌐 Network"
+            return "🌐 Network / \(displayIPAddress)"
         }
     }
 
@@ -52,6 +56,7 @@ struct NetworkInfo: Equatable {
         proxy: "未取得",
         vpn: "未取得",
         dns: "未取得",
+        isFetchingGlobalIP: false,
         lastUpdated: nil
     )
 
