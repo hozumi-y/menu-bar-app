@@ -50,6 +50,14 @@ final class NetworkStatusViewModel: ObservableObject {
         isRefreshing = false
     }
 
+    func copyGlobalIPAddress() {
+        clipboardService.copy(networkInfo.globalIPAddressDisplayText)
+    }
+
+    func copyLocalIPAddress() {
+        clipboardService.copy(networkInfo.localIPAddress)
+    }
+
     func copySummary() {
         clipboardService.copy(networkInfo.summaryText)
     }
@@ -94,24 +102,14 @@ private extension NetworkInfo {
     var summaryText: String {
         """
         Network Monitor
-        接続状態：\(connectionStatusText)
-        接続方式：\(connectionTypeText)
-        グローバルIP：\(globalIPAddress)
+        現在の状態：\(connectionStatusText)
+        グローバルIP：\(globalIPAddressDisplayText)
         ローカルIP：\(localIPAddress)
+        接続方式：\(connectionTypeText)
         プロキシ：\(proxyInfo.summaryText)
         VPN：\(vpnInfo.summaryText)
-        DNS：\(dns)
+        DNS：\(dnsDisplayText)
         最終更新：\(lastUpdatedText)
         """
-    }
-}
-
-
-private extension ProxyInfo {
-    var summaryText: String {
-        guard detectionStatus == .available else { return "取得不可" }
-        guard isEnabled else { return "OFF" }
-
-        return "ON / 種類：\(type) / ホスト：\(displayHost) / ポート：\(displayPort)"
     }
 }
