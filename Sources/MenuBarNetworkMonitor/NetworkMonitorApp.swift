@@ -7,7 +7,7 @@ struct NetworkMonitorApp: App {
     @StateObject private var viewModel = NetworkStatusViewModel()
 
     var body: some Scene {
-        MenuBarExtra("🌐 Network") {
+        MenuBarExtra(viewModel.menuBarTitle) {
             MenuBarView(viewModel: viewModel)
         }
         .menuBarExtraStyle(.window)
