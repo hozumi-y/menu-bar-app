@@ -14,7 +14,7 @@ struct MenuBarView: View {
                 infoRow(title: "ローカルIP", value: viewModel.networkInfo.localIPAddress)
                 infoRow(title: "接続状態", value: viewModel.networkInfo.connectionStatusText)
                 infoRow(title: "接続方式", value: viewModel.networkInfo.connectionTypeText)
-                infoRow(title: "プロキシ", value: viewModel.networkInfo.proxy)
+                proxyInfoRows(viewModel.networkInfo.proxyInfo)
                 infoRow(title: "VPN", value: viewModel.networkInfo.vpn)
                 infoRow(title: "DNS", value: viewModel.networkInfo.dns)
                 infoRow(title: "最終更新", value: viewModel.networkInfo.lastUpdatedText)
@@ -33,6 +33,17 @@ struct MenuBarView: View {
         }
         .padding(16)
         .frame(width: 320, alignment: .leading)
+    }
+
+    @ViewBuilder
+    private func proxyInfoRows(_ proxyInfo: ProxyInfo) -> some View {
+        infoRow(title: "プロキシ", value: proxyInfo.statusText)
+
+        if proxyInfo.detectionStatus == .available, proxyInfo.isEnabled {
+            infoRow(title: "種類", value: proxyInfo.type)
+            infoRow(title: "ホスト", value: proxyInfo.displayHost)
+            infoRow(title: "ポート", value: proxyInfo.displayPort)
+        }
     }
 
     private func infoRow(title: String, value: String) -> some View {
