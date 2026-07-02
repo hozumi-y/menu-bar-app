@@ -6,6 +6,10 @@ final class NetworkStatusViewModel: ObservableObject {
     @Published private(set) var networkInfo: NetworkInfo
     @Published private(set) var isRefreshing = false
 
+    var menuBarTitle: String {
+        networkInfo.menuBarTitle
+    }
+
     private let networkInfoService: NetworkInfoServicing
     private let clipboardService: ClipboardServicing
 
@@ -16,6 +20,11 @@ final class NetworkStatusViewModel: ObservableObject {
         self.networkInfo = .placeholder
         self.networkInfoService = networkInfoService
         self.clipboardService = clipboardService
+        startMonitoringNetworkStatus()
+    }
+
+    deinit {
+        networkInfoService.stopMonitoring()
     }
 
     func refresh() async {
@@ -28,20 +37,28 @@ final class NetworkStatusViewModel: ObservableObject {
     func copySummary() {
         clipboardService.copy(networkInfo.summaryText)
     }
+
+    private func startMonitoringNetworkStatus() {
+        networkInfoService.startMonitoring { [weak self] networkInfo in
+            Task { @MainActor [weak self] in
+                self?.networkInfo = networkInfo
+            }
+        }
+    }
 }
 
 private extension NetworkInfo {
     var summaryText: String {
         """
         Network Monitor
-        接続状態：\(connectionStatus)
-        接続方式：\(connectionType)
+        接続状態：\(connectionStatusText)
+        接続方式：\(connectionTypeText)
         グローバルIP：\(globalIPAddress)
         ローカルIP：\(localIPAddress)
         プロキシ：\(proxy)
         VPN：\(vpn)
         DNS：\(dns)
-        最終更新：\(lastUpdated)
+        最終更新：\(lastUpdatedText)
         """
     }
 }

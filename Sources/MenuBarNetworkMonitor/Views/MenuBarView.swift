@@ -10,14 +10,14 @@ struct MenuBarView: View {
                 .font(.headline)
 
             VStack(alignment: .leading, spacing: 8) {
-                infoRow(title: "接続状態", value: viewModel.networkInfo.connectionStatus)
-                infoRow(title: "接続方式", value: viewModel.networkInfo.connectionType)
+                infoRow(title: "接続状態", value: viewModel.networkInfo.connectionStatusText)
+                infoRow(title: "接続方式", value: viewModel.networkInfo.connectionTypeText)
                 infoRow(title: "グローバルIP", value: viewModel.networkInfo.globalIPAddress)
                 infoRow(title: "ローカルIP", value: viewModel.networkInfo.localIPAddress)
                 infoRow(title: "プロキシ", value: viewModel.networkInfo.proxy)
                 infoRow(title: "VPN", value: viewModel.networkInfo.vpn)
                 infoRow(title: "DNS", value: viewModel.networkInfo.dns)
-                infoRow(title: "最終更新", value: viewModel.networkInfo.lastUpdated)
+                infoRow(title: "最終更新", value: viewModel.networkInfo.lastUpdatedText)
             }
 
             Divider()
