@@ -13,7 +13,10 @@ let package = Package(
         .executableTarget(
             name: "MenuBarNetworkMonitor",
             path: "Sources/MenuBarNetworkMonitor",
-            exclude: ["Info.plist"]
+            exclude: ["Info.plist"],
+            linkerSettings: [
+                .linkedFramework("SystemConfiguration")
+            ]
         )
     ]
 )

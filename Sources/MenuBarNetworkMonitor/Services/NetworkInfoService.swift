@@ -43,7 +43,7 @@ final class NetworkInfoService: NetworkInfoServicing {
             connectionType: connectionType(for: path),
             globalIPAddress: "未取得",
             localIPAddress: "未取得",
-            proxy: "未取得",
+            proxyInfo: .unavailable,
             vpn: "未取得",
             dns: "未取得",
             isFetchingGlobalIP: false,
