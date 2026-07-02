@@ -5,6 +5,7 @@ import Foundation
 final class NetworkStatusViewModel: ObservableObject {
     @Published private(set) var networkInfo: NetworkInfo
     @Published private(set) var isRefreshing = false
+    @Published private(set) var copyMessage: String?
 
     var menuBarTitle: String {
         networkInfo.menuBarTitle
@@ -16,6 +17,7 @@ final class NetworkStatusViewModel: ObservableObject {
     private let proxyInfoService: ProxyInfoServicing
     private let vpnInfoService: VPNInfoServicing
     private var refreshTask: Task<Void, Never>?
+    private var copyMessageTask: Task<Void, Never>?
 
     init(
         networkInfoService: NetworkInfoServicing = NetworkInfoService(),
@@ -38,6 +40,7 @@ final class NetworkStatusViewModel: ObservableObject {
     deinit {
         refreshTask?.cancel()
         networkInfoService.stopMonitoring()
+        copyMessageTask?.cancel()
     }
 
     func refresh() async {
@@ -51,15 +54,32 @@ final class NetworkStatusViewModel: ObservableObject {
     }
 
     func copyGlobalIPAddress() {
-        clipboardService.copy(networkInfo.globalIPAddressDisplayText)
+        copyToClipboard(networkInfo.globalIPAddressDisplayText)
     }
 
     func copyLocalIPAddress() {
-        clipboardService.copy(networkInfo.localIPAddress)
+        copyToClipboard(networkInfo.localIPAddress)
     }
 
-    func copySummary() {
-        clipboardService.copy(networkInfo.summaryText)
+    func copyNetworkInfo() {
+        copyToClipboard(networkInfo.clipboardText)
+    }
+
+    private func copyToClipboard(_ text: String) {
+        let didCopy = clipboardService.copy(text)
+        showCopyMessage(didCopy ? "コピーしました" : "コピーできませんでした")
+    }
+
+    private func showCopyMessage(_ message: String) {
+        copyMessageTask?.cancel()
+        copyMessage = message
+        copyMessageTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(3))
+            guard !Task.isCancelled else { return }
+            await MainActor.run {
+                self?.copyMessage = nil
+            }
+        }
     }
 
     private func startMonitoringNetworkStatus() {
@@ -99,17 +119,42 @@ final class NetworkStatusViewModel: ObservableObject {
 }
 
 private extension NetworkInfo {
-    var summaryText: String {
+    var clipboardText: String {
         """
-        Network Monitor
-        現在の状態：\(connectionStatusText)
-        グローバルIP：\(globalIPAddressDisplayText)
-        ローカルIP：\(localIPAddress)
+        現在のネットワーク情報
+        接続状態：\(connectionStatusText)
         接続方式：\(connectionTypeText)
-        プロキシ：\(proxyInfo.summaryText)
-        VPN：\(vpnInfo.summaryText)
+        グローバルIP：\(globalIPAddressDisplayText)
+        ローカルIP：\(localIPAddressDisplayText)
+        プロキシ：\(proxyInfo.statusText)
+        プロキシ種別：\(proxyInfo.typeDisplayText)
+        プロキシホスト：\(proxyInfo.displayHost)
+        プロキシポート：\(proxyInfo.displayPort)
+        VPN：\(vpnInfo.statusText)
         DNS：\(dnsDisplayText)
-        最終更新：\(lastUpdatedText)
+        最終更新：\(clipboardLastUpdatedText)
         """
+    }
+
+    var localIPAddressDisplayText: String {
+        localIPAddress.isEmpty ? "未取得" : localIPAddress
+    }
+
+    var clipboardLastUpdatedText: String {
+        guard let lastUpdated else { return "未取得" }
+        return Self.clipboardLastUpdatedFormatter.string(from: lastUpdated)
+    }
+
+    private static var clipboardLastUpdatedFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        return formatter
+    }
+}
+
+private extension ProxyInfo {
+    var typeDisplayText: String {
+        type.isEmpty ? "未取得" : type
     }
 }
