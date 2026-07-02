@@ -7,11 +7,9 @@ protocol ProxyInfoServicing: AnyObject {
 
 final class ProxyInfoService: ProxyInfoServicing {
     func getProxyInfo() -> ProxyInfo {
-        guard let unmanagedProxies = SCDynamicStoreCopyProxies(nil) else {
+        guard let proxies = SCDynamicStoreCopyProxies(nil) as NSDictionary? else {
             return .unavailable
         }
-
-        let proxies = unmanagedProxies.takeRetainedValue() as NSDictionary
 
         return proxyInfo(
             from: proxies,
