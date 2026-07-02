@@ -1,6 +1,11 @@
 import Foundation
 
-enum NetworkConnectionType: String, Equatable {
+enum ConnectionStatus: String {
+    case online = "オンライン"
+    case offline = "オフライン"
+}
+
+enum ConnectionType: String {
     case wifi = "Wi-Fi"
     case ethernet = "Ethernet"
     case cellular = "Cellular"
@@ -9,25 +14,25 @@ enum NetworkConnectionType: String, Equatable {
 }
 
 struct NetworkInfo: Equatable {
-    var isOnline: Bool
-    var connectionType: NetworkConnectionType
-    var globalIPAddress: String
-    var localIPAddress: String
-    var proxy: String
-    var vpn: String
-    var dns: String
-    var lastUpdated: Date?
+    var status: ConnectionStatus = .offline
+    var connectionType: ConnectionType = .unknown
+    var localIPAddress: String = "取得不可"
+    var globalIPAddress: String = "取得失敗"
+    var proxyInfo: ProxyInfo = .unavailable
+    var vpnInfo: VPNInfo = VPNInfo(isConnected: false, interfaces: [])
+    var dnsServers: [String] = []
+    var lastUpdated: Date = Date()
 
-    var connectionStatusText: String {
-        isOnline ? "オンライン" : "オフライン"
+    var dnsDisplayText: String {
+        dnsServers.isEmpty ? "取得不可" : dnsServers.joined(separator: ", ")
     }
 
-    var connectionTypeText: String {
-        connectionType.rawValue
+    var connectionStatusText: String {
+        status.rawValue
     }
 
     var menuBarTitle: String {
-        guard isOnline else { return "⚠️ Offline" }
+        guard status == .online else { return "⚠️ Offline" }
 
         switch connectionType {
         case .wifi:
@@ -39,14 +44,17 @@ struct NetworkInfo: Equatable {
         }
     }
 
-    static let placeholder = NetworkInfo(
-        isOnline: false,
-        connectionType: .unknown,
-        globalIPAddress: "未取得",
-        localIPAddress: "未取得",
-        proxy: "未取得",
-        vpn: "未取得",
-        dns: "未取得",
-        lastUpdated: nil
-    )
+    func copyText(dateFormatter: DateFormatter) -> String {
+        """
+        現在のネットワーク情報
+        接続状態：\(status.rawValue)
+        接続方式：\(connectionType.rawValue)
+        ローカルIP：\(localIPAddress)
+        グローバルIP：\(globalIPAddress)
+        プロキシ：\(proxyInfo.isEnabled ? "ON" : "OFF")
+        VPN：\(vpnInfo.isConnected ? "ON" : "OFF")
+        DNS：\(dnsDisplayText)
+        最終更新：\(dateFormatter.string(from: lastUpdated))
+        """
+    }
 }
