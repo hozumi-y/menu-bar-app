@@ -14,19 +14,22 @@ final class NetworkStatusViewModel: ObservableObject {
     private let ipAddressService: IPAddressServicing
     private let clipboardService: ClipboardServicing
     private let proxyInfoService: ProxyInfoServicing
+    private let vpnInfoService: VPNInfoServicing
     private var refreshTask: Task<Void, Never>?
 
     init(
         networkInfoService: NetworkInfoServicing = NetworkInfoService(),
         ipAddressService: IPAddressServicing = IPAddressService(),
         clipboardService: ClipboardServicing = ClipboardService(),
-        proxyInfoService: ProxyInfoServicing = ProxyInfoService()
+        proxyInfoService: ProxyInfoServicing = ProxyInfoService(),
+        vpnInfoService: VPNInfoServicing = VPNInfoService()
     ) {
         self.networkInfo = .placeholder
         self.networkInfoService = networkInfoService
         self.ipAddressService = ipAddressService
         self.clipboardService = clipboardService
         self.proxyInfoService = proxyInfoService
+        self.vpnInfoService = vpnInfoService
         startMonitoringNetworkStatus()
 
         Task { await refresh() }
@@ -65,9 +68,11 @@ final class NetworkStatusViewModel: ObservableObject {
     private func updateIPAddress(for baseNetworkInfo: NetworkInfo) async {
         let localIPAddress = ipAddressService.getLocalIPAddress()
         let proxyInfo = proxyInfoService.getProxyInfo()
+        let vpnInfo = vpnInfoService.getVPNInfo()
         var updatedNetworkInfo = baseNetworkInfo
         updatedNetworkInfo.localIPAddress = localIPAddress
         updatedNetworkInfo.proxyInfo = proxyInfo
+        updatedNetworkInfo.vpnInfo = vpnInfo
         updatedNetworkInfo.globalIPAddress = baseNetworkInfo.isOnline ? "取得中" : "取得失敗"
         updatedNetworkInfo.isFetchingGlobalIP = baseNetworkInfo.isOnline
         updatedNetworkInfo.lastUpdated = Date()
@@ -94,7 +99,7 @@ private extension NetworkInfo {
         グローバルIP：\(globalIPAddress)
         ローカルIP：\(localIPAddress)
         プロキシ：\(proxyInfo.summaryText)
-        VPN：\(vpn)
+        VPN：\(vpnInfo.summaryText)
         DNS：\(dns)
         最終更新：\(lastUpdatedText)
         """

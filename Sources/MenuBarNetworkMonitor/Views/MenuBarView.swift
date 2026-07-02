@@ -15,7 +15,7 @@ struct MenuBarView: View {
                 infoRow(title: "接続状態", value: viewModel.networkInfo.connectionStatusText)
                 infoRow(title: "接続方式", value: viewModel.networkInfo.connectionTypeText)
                 proxyInfoRows(viewModel.networkInfo.proxyInfo)
-                infoRow(title: "VPN", value: viewModel.networkInfo.vpn)
+                vpnInfoRows(viewModel.networkInfo.vpnInfo)
                 infoRow(title: "DNS", value: viewModel.networkInfo.dns)
                 infoRow(title: "最終更新", value: viewModel.networkInfo.lastUpdatedText)
             }
@@ -43,6 +43,15 @@ struct MenuBarView: View {
             infoRow(title: "種類", value: proxyInfo.type)
             infoRow(title: "ホスト", value: proxyInfo.displayHost)
             infoRow(title: "ポート", value: proxyInfo.displayPort)
+        }
+    }
+
+    @ViewBuilder
+    private func vpnInfoRows(_ vpnInfo: VPNInfo) -> some View {
+        infoRow(title: "VPN", value: vpnInfo.statusText)
+
+        if vpnInfo.detectionStatus == .available, vpnInfo.isEnabled {
+            infoRow(title: "インターフェース", value: vpnInfo.displayInterfaceName)
         }
     }
 
