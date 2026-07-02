@@ -44,7 +44,7 @@ final class NetworkInfoService: NetworkInfoServicing {
             globalIPAddress: "未取得",
             localIPAddress: "未取得",
             proxyInfo: .unavailable,
-            vpn: "未取得",
+            vpnInfo: .unavailable,
             dns: "未取得",
             isFetchingGlobalIP: false,
             lastUpdated: Date()

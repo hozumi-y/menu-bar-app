@@ -14,7 +14,7 @@ struct NetworkInfo: Equatable {
     var globalIPAddress: String
     var localIPAddress: String
     var proxyInfo: ProxyInfo
-    var vpn: String
+    var vpnInfo: VPNInfo
     var dns: String
     var isFetchingGlobalIP: Bool
     var lastUpdated: Date?
@@ -38,6 +38,10 @@ struct NetworkInfo: Equatable {
         let ipAddressText = isFetchingGlobalIP ? "取得中" : globalIPAddress
         let displayIPAddress = globalIPAddress == "取得失敗" ? "IP取得失敗" : ipAddressText
 
+        if vpnInfo.detectionStatus == .available, vpnInfo.isEnabled {
+            return "🔒 VPN / \(displayIPAddress)"
+        }
+
         if let proxyHost = proxyInfo.menuBarTitleComponent {
             return "🌐 Proxy / \(proxyHost)"
         }
@@ -58,7 +62,7 @@ struct NetworkInfo: Equatable {
         globalIPAddress: "未取得",
         localIPAddress: "未取得",
         proxyInfo: .unavailable,
-        vpn: "未取得",
+        vpnInfo: .unavailable,
         dns: "未取得",
         isFetchingGlobalIP: false,
         lastUpdated: nil
