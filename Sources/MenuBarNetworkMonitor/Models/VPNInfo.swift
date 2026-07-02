@@ -1,5 +1,3 @@
-import Foundation
-
 enum VPNDetectionStatus: Equatable {
     case available
     case unavailable
