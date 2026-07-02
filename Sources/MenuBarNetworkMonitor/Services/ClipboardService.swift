@@ -1,13 +1,17 @@
 import AppKit
 
 protocol ClipboardServicing {
-    func copy(_ text: String)
+    @discardableResult
+    func copy(_ text: String) -> Bool
 }
 
 final class ClipboardService: ClipboardServicing {
-    func copy(_ text: String) {
-        // 今後のコピー機能追加に備えた仮実装。
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(text, forType: .string)
+    @discardableResult
+    func copy(_ text: String) -> Bool {
+        guard !text.isEmpty else { return false }
+
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        return pasteboard.setString(text, forType: .string)
     }
 }

@@ -20,7 +20,14 @@ struct ActionButtonsView: View {
             }
 
             Button("ネットワーク情報をコピー") {
-                viewModel.copySummary()
+                viewModel.copyNetworkInfo()
+            }
+
+            if let copyMessage = viewModel.copyMessage {
+                Text(copyMessage)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             Divider()
