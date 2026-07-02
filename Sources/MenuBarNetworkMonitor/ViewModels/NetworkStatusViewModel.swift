@@ -16,15 +16,19 @@ final class NetworkStatusViewModel: ObservableObject {
     private let clipboardService: ClipboardServicing
     private let proxyInfoService: ProxyInfoServicing
     private let vpnInfoService: VPNInfoServicing
+    private let dnsInfoService: DNSInfoServicing
     private var refreshTask: Task<Void, Never>?
     private var copyMessageTask: Task<Void, Never>?
+    private var pendingRefresh = false
+    private var latestPathNetworkInfo: NetworkInfo?
 
     init(
         networkInfoService: NetworkInfoServicing = NetworkInfoService(),
         ipAddressService: IPAddressServicing = IPAddressService(),
         clipboardService: ClipboardServicing = ClipboardService(),
         proxyInfoService: ProxyInfoServicing = ProxyInfoService(),
-        vpnInfoService: VPNInfoServicing = VPNInfoService()
+        vpnInfoService: VPNInfoServicing = VPNInfoService(),
+        dnsInfoService: DNSInfoServicing = DNSInfoService()
     ) {
         self.networkInfo = .placeholder
         self.networkInfoService = networkInfoService
@@ -32,9 +36,9 @@ final class NetworkStatusViewModel: ObservableObject {
         self.clipboardService = clipboardService
         self.proxyInfoService = proxyInfoService
         self.vpnInfoService = vpnInfoService
+        self.dnsInfoService = dnsInfoService
         startMonitoringNetworkStatus()
-
-        Task { await refresh() }
+        refresh()
     }
 
     deinit {
@@ -43,14 +47,12 @@ final class NetworkStatusViewModel: ObservableObject {
         copyMessageTask?.cancel()
     }
 
-    func refresh() async {
-        refreshTask?.cancel()
-        isRefreshing = true
+    func refresh() {
+        requestRefresh()
+    }
 
-        let baseNetworkInfo = await networkInfoService.fetchNetworkInfo()
-        await updateIPAddress(for: baseNetworkInfo)
-
-        isRefreshing = false
+    func handleNetworkPathChanged() {
+        requestRefresh()
     }
 
     func copyGlobalIPAddress() {
@@ -85,28 +87,67 @@ final class NetworkStatusViewModel: ObservableObject {
     private func startMonitoringNetworkStatus() {
         networkInfoService.startMonitoring { [weak self] networkInfo in
             Task { @MainActor [weak self] in
-                self?.refreshTask?.cancel()
-                self?.refreshTask = Task { [weak self] in
-                    await self?.updateIPAddress(for: networkInfo)
-                }
+                self?.handleNetworkPathChanged(with: networkInfo)
             }
         }
     }
 
-    private func updateIPAddress(for baseNetworkInfo: NetworkInfo) async {
+    private func handleNetworkPathChanged(with networkInfo: NetworkInfo) {
+        latestPathNetworkInfo = networkInfo
+        handleNetworkPathChanged()
+    }
+
+    private func requestRefresh() {
+        guard refreshTask == nil else {
+            pendingRefresh = true
+            return
+        }
+
+        isRefreshing = true
+        refreshTask = Task { [weak self] in
+            await self?.runRefreshLoop()
+        }
+    }
+
+    private func runRefreshLoop() async {
+        repeat {
+            pendingRefresh = false
+            let baseNetworkInfo: NetworkInfo
+            if let latestPathNetworkInfo {
+                baseNetworkInfo = latestPathNetworkInfo
+                self.latestPathNetworkInfo = nil
+            } else {
+                baseNetworkInfo = await networkInfoService.fetchNetworkInfo()
+            }
+
+            await updateNetworkInfo(for: baseNetworkInfo)
+        } while pendingRefresh && !Task.isCancelled
+
+        isRefreshing = false
+        refreshTask = nil
+    }
+
+    private func updateNetworkInfo(for baseNetworkInfo: NetworkInfo) async {
         let localIPAddress = ipAddressService.getLocalIPAddress()
         let proxyInfo = proxyInfoService.getProxyInfo()
         let vpnInfo = vpnInfoService.getVPNInfo()
+        let dns = dnsInfoService.getDNSInfo()
         var updatedNetworkInfo = baseNetworkInfo
         updatedNetworkInfo.localIPAddress = localIPAddress
         updatedNetworkInfo.proxyInfo = proxyInfo
         updatedNetworkInfo.vpnInfo = vpnInfo
+        updatedNetworkInfo.dns = dns
         updatedNetworkInfo.globalIPAddress = baseNetworkInfo.isOnline ? "取得中" : "取得失敗"
         updatedNetworkInfo.isFetchingGlobalIP = baseNetworkInfo.isOnline
         updatedNetworkInfo.lastUpdated = Date()
         networkInfo = updatedNetworkInfo
 
-        guard baseNetworkInfo.isOnline else { return }
+        guard baseNetworkInfo.isOnline else {
+            updatedNetworkInfo.isFetchingGlobalIP = false
+            updatedNetworkInfo.lastUpdated = Date()
+            networkInfo = updatedNetworkInfo
+            return
+        }
 
         let globalIPAddress = await ipAddressService.fetchGlobalIPAddress()
         guard !Task.isCancelled else { return }
