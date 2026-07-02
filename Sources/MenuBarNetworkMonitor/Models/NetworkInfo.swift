@@ -32,27 +32,35 @@ struct NetworkInfo: Equatable {
         return Self.lastUpdatedFormatter.string(from: lastUpdated)
     }
 
+    var globalIPAddressDisplayText: String {
+        if isFetchingGlobalIP { return "取得中" }
+        if globalIPAddress == "取得失敗" { return "IP取得失敗" }
+        if globalIPAddress.isEmpty { return "未取得" }
+        return globalIPAddress
+    }
+
+    var dnsDisplayText: String {
+        dns.isEmpty ? "未取得" : dns
+    }
+
     var menuBarTitle: String {
         guard isOnline else { return "⚠️ Offline" }
 
-        let ipAddressText = isFetchingGlobalIP ? "取得中" : globalIPAddress
-        let displayIPAddress = globalIPAddress == "取得失敗" ? "IP取得失敗" : ipAddressText
-
         if vpnInfo.detectionStatus == .available, vpnInfo.isEnabled {
-            return "🔒 VPN / \(displayIPAddress)"
+            return "🔒 VPN / \(globalIPAddressDisplayText)"
         }
 
-        if let proxyHost = proxyInfo.menuBarTitleComponent {
-            return "🌐 Proxy / \(proxyHost)"
+        if proxyInfo.detectionStatus == .available, proxyInfo.isEnabled {
+            return "🌐 Proxy / \(globalIPAddressDisplayText)"
         }
 
         switch connectionType {
         case .wifi:
-            return "🌐 Wi-Fi / \(displayIPAddress)"
+            return "🌐 Wi-Fi / \(globalIPAddressDisplayText)"
         case .ethernet:
-            return "🌐 Ethernet / \(displayIPAddress)"
+            return "🌐 Ethernet / \(globalIPAddressDisplayText)"
         case .cellular, .other, .unknown:
-            return "🌐 Network / \(displayIPAddress)"
+            return "🌐 Network / \(globalIPAddressDisplayText)"
         }
     }
 
