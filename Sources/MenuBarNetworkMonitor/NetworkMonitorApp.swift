@@ -2,12 +2,12 @@ import AppKit
 import SwiftUI
 
 @main
-struct MenuBarNetworkMonitorApp: App {
+struct NetworkMonitorApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var viewModel = NetworkStatusViewModel()
 
     var body: some Scene {
-        MenuBarExtra(viewModel.networkInfo.menuBarTitle) {
+        MenuBarExtra(viewModel.menuBarTitle) {
             MenuBarView(viewModel: viewModel)
         }
         .menuBarExtraStyle(.window)
@@ -16,6 +16,7 @@ struct MenuBarNetworkMonitorApp: App {
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Dockに表示しないメニューバー常駐アプリとして起動する。
         NSApplication.shared.setActivationPolicy(.accessory)
     }
 }
