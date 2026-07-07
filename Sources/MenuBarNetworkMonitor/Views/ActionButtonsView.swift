@@ -32,6 +32,10 @@ struct ActionButtonsView: View {
 
             Divider()
 
+            Button("アプリを再起動", systemImage: "arrow.clockwise.circle") {
+                viewModel.restartApplication()
+            }
+
             Button("アプリを終了") {
                 NSApplication.shared.terminate(nil)
             }
