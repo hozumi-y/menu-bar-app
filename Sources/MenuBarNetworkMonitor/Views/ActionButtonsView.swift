@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ActionButtonsView: View {
     @ObservedObject var viewModel: NetworkStatusViewModel
+    @State private var isShowingDiagnostics = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -21,6 +22,13 @@ struct ActionButtonsView: View {
 
             Button("ネットワーク情報をコピー") {
                 viewModel.copyNetworkInfo()
+            }
+
+            Button("ネットワーク診断") {
+                isShowingDiagnostics = true
+            }
+            .sheet(isPresented: $isShowingDiagnostics) {
+                NetworkDiagnosticsView(viewModel: viewModel)
             }
 
             if let copyMessage = viewModel.copyMessage {
