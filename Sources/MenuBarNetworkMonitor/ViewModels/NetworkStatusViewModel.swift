@@ -6,6 +6,8 @@ final class NetworkStatusViewModel: ObservableObject {
     @Published private(set) var networkInfo: NetworkInfo
     @Published private(set) var isRefreshing = false
     @Published private(set) var copyMessage: String?
+    @Published private(set) var isRunningDiagnostics = false
+    @Published private(set) var diagnosticsReport: NetworkDiagnosticsReport?
 
     var menuBarTitle: String {
         networkInfo.menuBarTitle
@@ -18,6 +20,7 @@ final class NetworkStatusViewModel: ObservableObject {
     private let vpnInfoService: VPNInfoServicing
     private let dnsInfoService: DNSInfoServicing
     private let appRestartService: AppRestartServicing
+    private let networkDiagnosticsService: NetworkDiagnosticsServicing
     private var refreshTask: Task<Void, Never>?
     private var copyMessageTask: Task<Void, Never>?
     private var pendingRefresh = false
@@ -30,7 +33,8 @@ final class NetworkStatusViewModel: ObservableObject {
         proxyInfoService: ProxyInfoServicing = ProxyInfoService(),
         vpnInfoService: VPNInfoServicing = VPNInfoService(),
         dnsInfoService: DNSInfoServicing = DNSInfoService(),
-        appRestartService: AppRestartServicing = AppRestartService()
+        appRestartService: AppRestartServicing = AppRestartService(),
+        networkDiagnosticsService: NetworkDiagnosticsServicing = NetworkDiagnosticsService()
     ) {
         self.networkInfo = .placeholder
         self.networkInfoService = networkInfoService
@@ -40,6 +44,7 @@ final class NetworkStatusViewModel: ObservableObject {
         self.vpnInfoService = vpnInfoService
         self.dnsInfoService = dnsInfoService
         self.appRestartService = appRestartService
+        self.networkDiagnosticsService = networkDiagnosticsService
         startMonitoringNetworkStatus()
         refresh()
     }
@@ -72,6 +77,20 @@ final class NetworkStatusViewModel: ObservableObject {
 
     func restartApplication() {
         appRestartService.restart()
+    }
+
+    func runDiagnostics() {
+        guard !isRunningDiagnostics else { return }
+        isRunningDiagnostics = true
+        diagnosticsReport = nil
+
+        Task { [weak self] in
+            guard let self else { return }
+            let report = await networkDiagnosticsService.runDiagnostics()
+            guard !Task.isCancelled else { return }
+            diagnosticsReport = report
+            isRunningDiagnostics = false
+        }
     }
 
     private func copyToClipboard(_ text: String) {

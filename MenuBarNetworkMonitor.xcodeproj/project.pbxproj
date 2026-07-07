@@ -6,6 +6,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0000000000000000000001 /* NetworkDiagnosticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000002 /* NetworkDiagnosticsService.swift */; };
+		AA0000000000000000000003 /* NetworkDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000004 /* NetworkDiagnosticsView.swift */; };
 		A1B2C3D4E5F60718293A4B5C /* AppRestartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5061728394A5B6C /* AppRestartService.swift */; };
 		69CA20A4BDAEC615A2929313 /* NetworkMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D4C5F94C4402E2E05FECF4 /* NetworkMonitorApp.swift */; };
 		16351BD10DCDBAB6B04FD201 /* NetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9530455DFB505227AB459FA4 /* NetworkInfo.swift */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA0000000000000000000002 /* NetworkDiagnosticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/NetworkDiagnosticsService.swift; sourceTree = "<group>"; };
+		AA0000000000000000000004 /* NetworkDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Views/NetworkDiagnosticsView.swift; sourceTree = "<group>"; };
 		B1C2D3E4F5061728394A5B6C /* AppRestartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/AppRestartService.swift; sourceTree = "<group>"; };
 		F5BF48AA40CAD7891EB709FC /* Network Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Network Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D4C5F94C4402E2E05FECF4 /* NetworkMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/App/NetworkMonitorApp.swift; sourceTree = "<group>"; };
@@ -62,10 +66,12 @@
 				0DF937D51989C0FB3759CA60 /* DNSInfoService.swift */,
 				AD0C7352AF74D7F49C33C477 /* IPAddressService.swift */,
 				CB61CEF8A4E08E41FA32C316 /* NetworkInfoService.swift */,
+				AA0000000000000000000002 /* NetworkDiagnosticsService.swift */,
 				6DA1BC2C75F856233BC9EEEF /* ProxyInfoService.swift */,
 				F075402A6F52C3A78E5E93D0 /* VPNInfoService.swift */,
 				CB4DA890977834FC9282A5E3 /* NetworkStatusViewModel.swift */,
 				155F7D67357C1B77EA3436B5 /* ActionButtonsView.swift */,
+				AA0000000000000000000004 /* NetworkDiagnosticsView.swift */,
 				1D6B8BB9D370BC861FC13B3A /* MenuBarView.swift */,
 				FF44A02FCBC1438CF00EEEBE /* NetworkDetailRow.swift */,
 				579B1AF39926DEC95DEB2578 /* NetworkSummaryView.swift */,
@@ -97,10 +103,12 @@
 				3C05750C098946981E272A53 /* DNSInfoService.swift in Sources */,
 				3C73255394AB0E869F5D3543 /* IPAddressService.swift in Sources */,
 				F89783C50E50F7879AB428C5 /* NetworkInfoService.swift in Sources */,
+				AA0000000000000000000001 /* NetworkDiagnosticsService.swift in Sources */,
 				D5608EFF539A217587C7B995 /* ProxyInfoService.swift in Sources */,
 				90CA8897678DC757FA37F96E /* VPNInfoService.swift in Sources */,
 				FF247C686B937AFDD339821C /* NetworkStatusViewModel.swift in Sources */,
 				138BCE09D43983B28E6BD7A5 /* ActionButtonsView.swift in Sources */,
+				AA0000000000000000000003 /* NetworkDiagnosticsView.swift in Sources */,
 				51C51A7BA5B442554ECD31B1 /* MenuBarView.swift in Sources */,
 				BC0EE346614565449BC067C9 /* NetworkDetailRow.swift in Sources */,
 				1ABA8EE1547CD97E6C715F14 /* NetworkSummaryView.swift in Sources */,
