@@ -27,7 +27,14 @@ final class AppRestartService: AppRestartServicing {
             return
         }
 
+        guard applicationURL.pathExtension == "app" else {
+            NSLog("アプリの再起動に失敗しました: bundleURLが.appを指していません: %@", applicationURL.absoluteString)
+            return
+        }
+
         let configuration = NSWorkspace.OpenConfiguration()
+        configuration.createsNewApplicationInstance = true
+
         workspace.openApplication(at: applicationURL, configuration: configuration) { [weak self] _, error in
             if let error {
                 NSLog("アプリの再起動に失敗しました: %@", error.localizedDescription)
