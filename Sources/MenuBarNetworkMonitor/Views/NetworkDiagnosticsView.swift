@@ -34,10 +34,16 @@ struct NetworkDiagnosticsView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .frame(maxHeight: 420)
+            .frame(maxHeight: .infinity)
         }
         .padding(16)
-        .frame(width: 520, minHeight: 420, alignment: .topLeading)
+        .frame(
+            minWidth: 520,
+            idealWidth: 520,
+            minHeight: 420,
+            idealHeight: 420,
+            alignment: .topLeading
+        )
         .onAppear {
             if viewModel.diagnosticsReport == nil {
                 viewModel.runDiagnostics()
