@@ -6,6 +6,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F60718293A4B5C /* AppRestartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5061728394A5B6C /* AppRestartService.swift */; };
 		69CA20A4BDAEC615A2929313 /* NetworkMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D4C5F94C4402E2E05FECF4 /* NetworkMonitorApp.swift */; };
 		16351BD10DCDBAB6B04FD201 /* NetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9530455DFB505227AB459FA4 /* NetworkInfo.swift */; };
 		0DA9593048830830DE033B88 /* ProxyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D61F3F2DD7B3BE5568D4133 /* ProxyInfo.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B1C2D3E4F5061728394A5B6C /* AppRestartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Services/AppRestartService.swift; sourceTree = "<group>"; };
 		F5BF48AA40CAD7891EB709FC /* Network Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Network Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D4C5F94C4402E2E05FECF4 /* NetworkMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/App/NetworkMonitorApp.swift; sourceTree = "<group>"; };
 		9530455DFB505227AB459FA4 /* NetworkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MenuBarNetworkMonitor/Models/NetworkInfo.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 				6D61F3F2DD7B3BE5568D4133 /* ProxyInfo.swift */,
 				B289564A311EC090802F3096 /* VPNInfo.swift */,
 				07CC3BDE1434245967BA55E4 /* ClipboardService.swift */,
+				B1C2D3E4F5061728394A5B6C /* AppRestartService.swift */,
 				0DF937D51989C0FB3759CA60 /* DNSInfoService.swift */,
 				AD0C7352AF74D7F49C33C477 /* IPAddressService.swift */,
 				CB61CEF8A4E08E41FA32C316 /* NetworkInfoService.swift */,
@@ -90,6 +93,7 @@
 				0DA9593048830830DE033B88 /* ProxyInfo.swift in Sources */,
 				2E6AD0C299764BFA8BCF6C2D /* VPNInfo.swift in Sources */,
 				B30734A6EBC5A41481AA8C1D /* ClipboardService.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* AppRestartService.swift in Sources */,
 				3C05750C098946981E272A53 /* DNSInfoService.swift in Sources */,
 				3C73255394AB0E869F5D3543 /* IPAddressService.swift in Sources */,
 				F89783C50E50F7879AB428C5 /* NetworkInfoService.swift in Sources */,

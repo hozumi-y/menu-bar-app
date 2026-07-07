@@ -17,6 +17,7 @@ final class NetworkStatusViewModel: ObservableObject {
     private let proxyInfoService: ProxyInfoServicing
     private let vpnInfoService: VPNInfoServicing
     private let dnsInfoService: DNSInfoServicing
+    private let appRestartService: AppRestartServicing
     private var refreshTask: Task<Void, Never>?
     private var copyMessageTask: Task<Void, Never>?
     private var pendingRefresh = false
@@ -28,7 +29,8 @@ final class NetworkStatusViewModel: ObservableObject {
         clipboardService: ClipboardServicing = ClipboardService(),
         proxyInfoService: ProxyInfoServicing = ProxyInfoService(),
         vpnInfoService: VPNInfoServicing = VPNInfoService(),
-        dnsInfoService: DNSInfoServicing = DNSInfoService()
+        dnsInfoService: DNSInfoServicing = DNSInfoService(),
+        appRestartService: AppRestartServicing = AppRestartService()
     ) {
         self.networkInfo = .placeholder
         self.networkInfoService = networkInfoService
@@ -37,6 +39,7 @@ final class NetworkStatusViewModel: ObservableObject {
         self.proxyInfoService = proxyInfoService
         self.vpnInfoService = vpnInfoService
         self.dnsInfoService = dnsInfoService
+        self.appRestartService = appRestartService
         startMonitoringNetworkStatus()
         refresh()
     }
@@ -65,6 +68,10 @@ final class NetworkStatusViewModel: ObservableObject {
 
     func copyNetworkInfo() {
         copyToClipboard(networkInfo.clipboardText)
+    }
+
+    func restartApplication() {
+        appRestartService.restart()
     }
 
     private func copyToClipboard(_ text: String) {
