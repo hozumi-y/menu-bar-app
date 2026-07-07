@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct NetworkDiagnosticsView: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: NetworkStatusViewModel
 
     var body: some View {
@@ -35,6 +36,17 @@ struct NetworkDiagnosticsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .frame(maxHeight: .infinity)
+
+            Divider()
+
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Label("閉じる", systemImage: "xmark.circle")
+                }
+            }
         }
         .padding(16)
         .frame(
